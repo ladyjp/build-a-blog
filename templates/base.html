@@ -7,27 +7,30 @@
             .error {
                 color: red;
             }
-
-            input, title {
-                font-family: "Times New Roman", Times, serif;
+           
+            body {background-color:rgb(243, 245, 246);
+           }
+            h1 { font-family: Verdana, Geneva, Tahoma, sans-serif, serif;
+                color:hotpink;
+                text-align: center;
             }
+            label {
+                font-family: Verdana, Geneva, Tahoma, sans-serif, serif;
+                font-weight: bold;
+            }
+            h4 {
+                font-family: Verdana, Geneva, Tahoma, sans-serif, serif;
+            }       
+
         </style>
     </head>
 <body>
 
     <div>
-        <a href='/blog'>Main Blog Page</a>
-        <a href='/newpost'>Add New Blog Page</a>
+        <a href='/blog'>Main Blog Page</a> &ensp;
+        <a href='/newpost'>Add New Blog Entry</a>
 
     </div>
-
-    {% with messages = get_flashed_messages(with_categories=True) %}
-       <ul>
-        {% for category, message in messages %}
-            <li class="{{category}}">{{message}}</li>
-        {% endfor %}
-        </ul>
-    {% endwith %}
 
     {% block content %}
     {% endblock %}
