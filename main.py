@@ -12,7 +12,7 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
-    body = db.Column(db.String(10000))
+    body = db.Column(db.Text)
     
 
     def __init__(self, title, body):
@@ -41,8 +41,14 @@ def newpost():
         db.session.commit()
 
     else:
-        return render_template('newpost.hmtl')
+        return render_template('newpost.html')
 
+
+@app.route('/addpost', methods=['POST'])
+def addpost():
+    blogtitle = request.form['blogtitle']
+    body = request.form['body']
+    return '<h1>Title: {} Blog: {} </h1>'.format(blogtitle, body)
     
 #@app.route('/', methods=['POST'])
 #def blog_page():

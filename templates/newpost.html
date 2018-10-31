@@ -4,9 +4,9 @@
 {% block content %}
     
     <h1>A Black Woman's Blog</h1>
-    <form method='post'>
+    <form action="/addpost" method='post'>
         <label>New Blog Post Title: <br>
-             <input type="text" name='title'value="{{blogtitle}}" />
+             <input type="text"id="blogtitle" name='blogtitle' value="{{blogtitle}}" />
         </label>
         <br>
         <br>
