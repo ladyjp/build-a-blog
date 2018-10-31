@@ -11,12 +11,12 @@ app.secret_key = 'randomish8key'
 class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
+    blogtitle = db.Column(db.String(200))
     body = db.Column(db.Text)
     
 
-    def __init__(self, title, body):
-        self.title = title
+    def __init__(self, blogtitle, body):
+        self.blogtitle = blogtitle
         self.body = body
 
 @app.route('/', methods=['POST', 'GET'])
@@ -33,22 +33,21 @@ def blog():
 
 @app.route('/newpost',methods=['POST', 'GET'])
 def newpost():
-    if request.method == 'POST':
-        blogtitle = request.form['blogtitle']
-        body = request.form['body']
-        new_blog = Blog(title_post, blog_post)
-        db.session.add(new_blog)
-        db.session.commit()
-
-    else:
-        return render_template('newpost.html')
+    #new_blog = Blog(title_post, blog_post)
+    return render_template('newpost.html')
 
 
 @app.route('/addpost', methods=['POST'])
 def addpost():
     blogtitle = request.form['blogtitle']
     body = request.form['body']
-    return '<h1>Title: {} Blog: {} </h1>'.format(blogtitle, body)
+
+    new_blog = Blog(blogtitle=blogtitle, body=body)
+
+    db.session.add(new_blog)
+    db.session.commit()
+
+    return redirect('/')
     
 #@app.route('/', methods=['POST'])
 #def blog_page():
