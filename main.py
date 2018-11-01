@@ -19,6 +19,7 @@ class Blog(db.Model):
         self.blogtitle = blogtitle
         self.body = body
 
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('blog.html', title="A Black Woman's Blog")
@@ -28,13 +29,13 @@ def index():
 def blog():
     blogtitle = request.form['blogtitle']
     body = request.form['body']
-   
-    return render_template('blog.html', blogtitle=blogtitle, body=body)
+    blog = Blog.query.filter_by(blogtitle=blogtitle, body=body).all()
+    return render_template('blog.html', title="A Black Woman's Blog", blog=blog)
 
-@app.route('/newpost',methods=['POST', 'GET'])
+@app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
     #new_blog = Blog(title_post, blog_post)
-    return render_template('newpost.html')
+    return render_template('newpost.html', title="A Black Woman's Blog")
 
 
 @app.route('/addpost', methods=['POST'])
@@ -49,17 +50,12 @@ def addpost():
 
     return redirect('/')
     
-#@app.route('/', methods=['POST'])
-#def blog_page():
-   
-
-
 
 if __name__ == '__main__':
     app.run()
 
-#@app.route('/', methods=['POST'])
-#def view_post():
+#@app.route('/display', methods=['POST'])
+#def display():
    # title_post = request.form['title']
     #blog_post = request.form['blog']
     #return title_post
@@ -68,11 +64,6 @@ if __name__ == '__main__':
     #completed_blogs = Blog.query.filter_by(completed=True).all()
     #return render_template('blog.html',title="Black Woman Blog!", 
        # blogs=blogs, completed_blogs=completed_blogs)
-
-#@app.route('/blog', methods=['POST'])
-#def blog():
-
-
 
 
 

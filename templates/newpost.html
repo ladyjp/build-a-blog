@@ -3,7 +3,8 @@
 
 {% block content %}
     
-    <h1>A Black Woman's Blog</h1>
+    <h1>{{title}}</h1>
+    <hr>
     <form action="/addpost" method='post'>
         <label>New Blog Post Title: <br>
              <input type="text"id="blogtitle" name='blogtitle' value="{{blogtitle}}" />
@@ -17,9 +18,5 @@
         <input style="color: hotpink;" type="submit" value='Add New Blog Post' />
     </form>
     <br>
-    <hr />
-
-   
-
-
-    {% endblock %}
+    
+{% endblock %}

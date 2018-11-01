@@ -2,15 +2,14 @@
 
 {% block content %}
     <h1>{{title}}</h1>
+   <hr>
+    <ul>
+        {% for b in blog %}
+        <h4>{{b.blogtitle}}</h4>
+        <p>{{b.body}}</p>
+        {% endfor %}
+    </ul> 
     
-        <ul>
-            {% for i in blogtitle %}
-            <li>{{blogtitle.name}}</li>
-            {% endfor %}
-            
-            {% for i in body %}
-            <li>{{body.name}}</li>
-            {% endfor %}
-        </ul>
-
 {% endblock %}
+    
+    
