@@ -21,9 +21,9 @@ class Blog(db.Model):
 
 
 @app.route('/', methods=['POST', 'GET'])
+@app.route('/index')
 def index():
     return render_template('index.html', title="A Black Woman's Blog")
-
        
 @app.route('/blog')
 def blog():
@@ -33,7 +33,6 @@ def blog():
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
     return render_template('newpost.html', title="A Black Woman's Blog")
-
 
 @app.route('/addpost', methods=['POST'])
 def addpost():
@@ -46,34 +45,19 @@ def addpost():
     db.session.commit()
 
     return redirect('/blog')
+
+
+@app.route('/single')
+def single():
+    blog_id = request.args.get('id')
+    blogid = Blog.query.filter_by(id=blog_id).first()
     
+
+    return render_template('single.html', b=blogid)
 
 if __name__ == '__main__':
     app.run()
 
-#@app.route('/display', methods=['POST'])
-#def display():
-   # title_post = request.form['title']
-    #blog_post = request.form['blog']
-    #return title_post
 
-    #blogs = Blog.query.filter_by(completed=False).all()
-    #completed_blogs = Blog.query.filter_by(completed=True).all()
-    #return render_template('blog.html',title="Black Woman Blog!", 
-       # blogs=blogs, completed_blogs=completed_blogs)
-
-
-
-
-#@app.route('/delete-post', methods=['POST'])
-#def delete_post():
-
-    #task_id = int(request.form['task-id'])
-    #task = Task.query.get(task_id)
-    #task.completed = True
-    #db.session.add(task)
-    #db.session.commit()
-
-   # return redirect('/')
 
 
