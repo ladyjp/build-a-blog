@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{title}}</h1>
-   <hr>
+   
     <ul>
         {% for b in blogs %}
         <h4><a href = "/single?id={{b.id}}">{{b.blogtitle}}</a></h4>

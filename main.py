@@ -23,36 +23,51 @@ class Blog(db.Model):
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/index')
 def index():
-    return render_template('index.html', title="A Black Woman's Blog")
+    return render_template('index.html')
        
 @app.route('/blog')
 def blog():
     blogs = Blog.query.all()
-    return render_template('blog.html', title="A Black Woman's Blog", blogs=blogs)
+    return render_template('blog.html', blogs=blogs)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
-    return render_template('newpost.html', title="A Black Woman's Blog")
+    return render_template('newpost.html')
 
 @app.route('/addpost', methods=['POST'])
 def addpost():
     blogtitle = request.form['blogtitle']
     body = request.form['body']
+    
+    title_error = ''
+    body_error = ''
+    
+    if blogtitle == "":
+        title_error = 'Enter blog title'
+   
+    if body == "":
+        body_error = 'Enter blog post'
+    
+    if not title_error and not body_error:
+        new_blog = Blog(blogtitle=blogtitle, body=body)
 
-    new_blog = Blog(blogtitle=blogtitle, body=body)
+        db.session.add(new_blog)
+        db.session.commit()
+        
+        return redirect('/blog')
+    
+    else:
+        return render_template('newpost.html', title_error=title_error, 
+        body_error=body_error)
 
-    db.session.add(new_blog)
-    db.session.commit()
-
-    return redirect('/blog')
+  
 
 
 @app.route('/single')
 def single():
-    blog_id = request.args.get('id')
+    blog_id = request.args.get('id') 
     blogid = Blog.query.filter_by(id=blog_id).first()
     
-
     return render_template('single.html', b=blogid)
 
 if __name__ == '__main__':
